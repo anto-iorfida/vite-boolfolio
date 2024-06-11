@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios';
-import SingleProject from './SingleProject.vue'
+import SingleProject from '../components/SingleProject.vue'
 
 export default {
     name: "ProjectList",
@@ -48,13 +48,13 @@ export default {
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li v-if="prevPageUrl" class="page-item ">
-                    <a class="page-link rounded-pill" @click="getProjects(currentPage - 1)">Previous</a>
+                    <a class="page-link rounded-pill mx-3" @click="getProjects(currentPage - 1)">Previous</a>
                 </li>
                 <li class="page-item"><a class="page-link rounded-circle" >{{ currentPage - 1 }}</a></li>
-                <li class="page-item "><a class="page-link rounded-circle large" >{{ currentPage }}</a></li>
+                <li class="page-item "><a class="page-link rounded-circle large mx-1" >{{ currentPage }}</a></li>
                 <li class="page-item"><a class="page-link rounded-circle" >{{ currentPage + 1 }}</a></li>
                 <li v-if="nextPageUrl" class="page-item ">
-                    <a class="page-link rounded-pill" @click="getProjects(currentPage + 1)">Next</a>
+                    <a class="page-link rounded-pill mx-3" @click="getProjects(currentPage + 1)">Next</a>
                 </li>
             </ul>
         </nav>
