@@ -13,10 +13,13 @@ export default {
             prevPageUrl: null,
             nextPageUrl: null,
             projects: [],
+            loading: false,
         };
     },
     methods: {
         getProjects(pageNumber) {
+            this.loading = true;
+
             axios.get('http://127.0.0.1:8000/api/projects',{
                 params:{
                     page : pageNumber
@@ -28,6 +31,8 @@ export default {
                     this.currentPage = response.data.result.current_page;
                     this.prevPageUrl = response.data.result.prev_page_url;
                     this.nextPageUrl = response.data.result.next_page_url;
+
+                    this.loading = false;
                 });
         }
 
@@ -43,7 +48,7 @@ export default {
         <h2>All Projects</h2>
 
         <div class="row row-cols-4 my-5">
-            <SingleProject v-for="project in projects" :key="project.id" :projectInfo="project"></SingleProject>
+            <SingleProject v-for="project in projects" :key="project.id" :projectInfo="project" :loading="loading"></SingleProject>
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">

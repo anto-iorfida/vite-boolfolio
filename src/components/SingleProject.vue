@@ -1,8 +1,17 @@
 <script>
+import Loader from '../components/Loader.vue';
+
 export default {
     name: "SingleProject",
+    components: {
+        Loader
+    },
     props: {
-        projectInfo: Object
+        projectInfo: Object,
+        loading: {
+            type: Boolean,
+            required: true
+        }
     },
     data() {
         return {
@@ -21,13 +30,14 @@ export default {
 </script>
 
 <template>
+
     <div class="col">
-        <div class="card my-3" style="width: 18rem;">
+        <div v-if="!loading" class="card my-3" style="width: 18rem;">
             <div class="card-body">
                 <h4 class="card-title">{{ projectInfo.name }}</h4>
                 <h6 class="card-subtitle my-3 text-body-secondary">{{ projectInfo.client_name }}</h6>
                 <h6 v-if="projectInfo.type" class="card-subtitle my-3 text-body-secondary"><strong>Typo: </strong>{{
-                    projectInfo.type.name}}</h6>
+                    projectInfo.type.name }}</h6>
                 <div class="text-body-secondary">
                     <strong>Technologies: </strong> <span v-for="technology in projectInfo.technologies"
                         :key="technology.id">{{ technology.name }} &nbsp;</span>
@@ -38,6 +48,9 @@ export default {
                     class="btn btn-primary">Info</router-link>
             </div>
         </div>
+
+        <Loader v-else  ></Loader>
+
     </div>
 </template>
 
