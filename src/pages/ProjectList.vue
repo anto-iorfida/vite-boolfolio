@@ -14,6 +14,7 @@ export default {
             nextPageUrl: null,
             projects: [],
             loading: false,
+            totalPages: []
         };
     },
     methods: {
@@ -31,7 +32,8 @@ export default {
                     this.currentPage = response.data.result.current_page;
                     this.prevPageUrl = response.data.result.prev_page_url;
                     this.nextPageUrl = response.data.result.next_page_url;
-
+                    this.totalPages = response.data.result.links;
+                    console.log(this.totalPages);
                     this.loading = false;
                 });
         }
@@ -55,9 +57,12 @@ export default {
                 <li v-if="prevPageUrl" class="page-item ">
                     <a class="page-link rounded-pill mx-3" @click="getProjects(currentPage - 1)">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link rounded-circle" >{{ currentPage - 1 }}</a></li>
+                <!-- <li class="page-item"><a class="page-link rounded-circle" >{{ currentPage - 1 }}</a></li>
                 <li class="page-item "><a class="page-link rounded-circle large mx-1" >{{ currentPage }}</a></li>
-                <li class="page-item"><a class="page-link rounded-circle" >{{ currentPage + 1 }}</a></li>
+                <li class="page-item"><a class="page-link rounded-circle" >{{ currentPage + 1 }}</a></li> -->
+                <li @click="getProjects(currentPage = index+1)"  v-for="pages,index in totalPages.length -2 " :key="index" class="page-item rounded-circle" >
+                    <a class="page-link rounded-circle mx-2" :class="{ large : index+1 === currentPage }">{{ index }} </a>
+                </li>
                 <li v-if="nextPageUrl" class="page-item ">
                     <a class="page-link rounded-pill mx-3" @click="getProjects(currentPage + 1)">Next</a>
                 </li>
